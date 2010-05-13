@@ -2,4 +2,5 @@
 This is an attempt to develop a block for Moodle (http://moodle.org/) arising 
 out of the work of the Indicators project (http://indicatorsproject.wordpress.com).
 
-Still very early days.
+Still very early days.  You could probably install the block, but it
+doesn't do much and is likely to have all sorts of limitations.
