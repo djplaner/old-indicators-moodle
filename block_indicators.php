@@ -19,6 +19,7 @@ class block_indicators extends block_base {
         }
         /////Check the user level and separate students and staff
         $context = get_context_instance(CONTEXT_COURSE,$SESSION->cal_course_referer);
+        $canview=0;
         if ($roles = get_user_roles($context, $USER->id))
         {
           foreach ($roles as $role)
