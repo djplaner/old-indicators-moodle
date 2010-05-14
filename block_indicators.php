@@ -2,9 +2,10 @@
 
 class block_indicators extends block_base {
     function init() {
-        $this->title = get_string('Indicators','block_indicators');
+        $this->title = get_string("indicators","block_indicators");
         $this->version = 2010051010;
     }
+
     function get_content() {
         global $USER, $CFG, $COURSE, $SESSION;
         if ($this->content !== NULL) {
@@ -13,22 +14,19 @@ class block_indicators extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        if (empty($this->instance))
-        {
+        if (empty($this->instance)) {
             return $this->content;
         }
+
         /////Check the user level and separate students and staff
         $context = get_context_instance(CONTEXT_COURSE,$SESSION->cal_course_referer);
-        $canview=0;
-        if ($roles = get_user_roles($context, $USER->id))
-        {
-          foreach ($roles as $role)
-          {
-            if($role->roleid != 5 ) // This needs rethinking to cope with other roles
-            {
-              $canview=1;
-            } 
-          } 
+        $canview=-1;
+
+        if ( has_capability( 'moodle/legacy:teacher', $context )) {
+            $canview=1;
+        } else if ( has_capability( 'moodle/legacy:student', $context )) {
+            print "This is a student<br />";
+            $canview=0;
         }
         if($canview == 1)
         {
