@@ -24,10 +24,8 @@ class block_indicators extends block_base {
         $context = get_context_instance(CONTEXT_COURSE,
                                 $SESSION->cal_course_referer);
 
-        ///my $factory = new IndicatorFactory;
         $indicator = IndicatorFactory::create($context);
         $this->content->text = $indicator->generateText();
- 
     }
 }
 
