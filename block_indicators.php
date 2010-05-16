@@ -95,7 +95,7 @@ class block_indicators extends block_base {
           $avg=round(count_records_sql($SQL));
           $muliplier=(100/(2*$avg));
           $studentresult=round($studentresult*$muliplier);
-          $this->content->text .= "<br><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$studentresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"</img>";        
+          $this->content->text .= "<br><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$studentresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"></img>";        
         }      
     }
 }
