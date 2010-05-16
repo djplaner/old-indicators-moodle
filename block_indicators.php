@@ -54,10 +54,10 @@ class block_indicators extends block_base {
           //get the average forum posts and replies for ALL staff this term
           $SQL="select (count(*)/count(distinct(userid))) from {$CFG->prefix}log where course='$COURSE->id' and userid='$USER->id' and action in ('add discussion','add post','update post')
                   and course in 
-                  (select id from ${CFG->prefix}course where idnumber like '%2010')
+                  (select id from {$CFG->prefix}course where idnumber like '%2010')
                   and userid in
-                  ( select userid from ${CFG->prefix}role_assignments where roleid !='5' and contextid in
-                  (select id from ${CFG->prefix}context where contextlevel='50'))";
+                  ( select userid from {$CFG->prefix}role_assignments where roleid !='5' and contextid in
+                  (select id from {$CFG->prefix}context where contextlevel='50'))";
           $allstaffaverage=count_records_sql($SQL);
           
           //get the number of posts and replies for this user
@@ -66,16 +66,17 @@ class block_indicators extends block_base {
           
           ////////////Produce the graphs
           //The Hits graph
-          $this->content->text .= "<br>Staff Course Activity";
+          $this->content->text .= "<br />Staff Course Activity";
+          $staffaverage=1;  $allstaffaverage=1;
           $muliplier=(100/(2*$staffaverage));
           $staffhitsresult=round($staffresult*$muliplier);
-          $this->content->text .= "<br><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$staffhitsresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"</img>";
+          $this->content->text .= "<br /><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$staffhitsresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"></img>";
           
           //The forums graph
           $this->content->text .= "<br>Staff Forum Participation";
           $muliplier=(100/(2*$allstaffaverage));
           $staffpostresult=round($staffposts*$muliplier);
-          $this->content->text .= "<br><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$staffpostresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"</img>";
+          $this->content->text .= "<br><img src=\"http://chart.apis.google.com/chart?chs=170x70&chd=t:$staffpostresult&cht=gom&chf=bg,s,EFEFEF&chxt=x,y&chxl=0:||1:|Low||High\"></img>";
 
           
         } else
