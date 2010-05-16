@@ -22,10 +22,10 @@ class block_indicators extends block_base {
         $context = get_context_instance(CONTEXT_COURSE,$SESSION->cal_course_referer);
         $canview=-1;
 
-        if ( has_capability( 'moodle/legacy:teacher', $context )) {
+        if ( has_capability( 'moodle/legacy:teacher', $context ) ||
+             has_capability( 'moodle/legacy:editingteacher', $context) ) {
             $canview=1;
         } else if ( has_capability( 'moodle/legacy:student', $context )) {
-            print "This is a student<br />";
             $canview=0;
         }
         if($canview == 1)
@@ -54,10 +54,10 @@ class block_indicators extends block_base {
           //get the average forum posts and replies for ALL staff this term
           $SQL="select (count(*)/count(distinct(userid))) from {$CFG->prefix}log where course='$COURSE->id' and userid='$USER->id' and action in ('add discussion','add post','update post')
                   and course in 
-                  (select id from m_course where idnumber like '%2010')
+                  (select id from ${CFG->prefix}course where idnumber like '%2010')
                   and userid in
-                  ( select userid from m_role_assignments where roleid !='5' and contextid in
-                  (select id from m_context where contextlevel='50'))";
+                  ( select userid from ${CFG->prefix}role_assignments where roleid !='5' and contextid in
+                  (select id from ${CFG->prefix}context where contextlevel='50'))";
           $allstaffaverage=count_records_sql($SQL);
           
           //get the number of posts and replies for this user
