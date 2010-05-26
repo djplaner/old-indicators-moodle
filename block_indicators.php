@@ -9,7 +9,7 @@ class block_indicators extends block_base {
     }
 
     function get_content() {
-        global $USER, $CFG, $COURSE, $SESSION;
+        global $SESSION;
         if ($this->content !== NULL) {
             return $this->content;
         }
@@ -24,8 +24,10 @@ class block_indicators extends block_base {
         $context = get_context_instance(CONTEXT_COURSE,
                                 $SESSION->cal_course_referer);
 
-        $indicator = IndicatorFactory::create($context);
-        $this->content->text = $indicator->generateText();
+        $model = IndicatorFactory::createModel( $context );
+        $view = IndicatorFactory::createView( $model, $context );
+        $this->content->text = $view->generateVisualisation();
+        return $this->content;
     }
 }
 
