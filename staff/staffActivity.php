@@ -74,7 +74,7 @@ vis.add(pv.Bar)
 vis.render();
 </script>
 EOF;
-/*         $text = "<br />Staff Course Activity";
+         $text = "<br />Staff Course Activity";
          $staffaverage=1;  $allstaffaverage=1;
          $muliplier=(100/(2*$staffaverage));
          $staffhitsresult=round($staffresult*$muliplier);
