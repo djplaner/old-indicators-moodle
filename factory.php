@@ -37,8 +37,11 @@ class IndicatorFactory {
 
         if ( has_capability( 'moodle/legacy:teacher', $context ) ||
              has_capability( 'moodle/legacy:editingteacher', $context ) ) {
-            require_once(
-                    $CFG->dirroot.'/blocks/indicators/staff/activity/google_view.php');
+            $view = "/blocks/indicators/staff/activity/google_view.php";
+            if ( rand( 0, 1 ) == 1 ) {
+                $view = "/blocks/indicators/staff/activity/protovis_view.php";
+            } 
+            require_once( $CFG->dirroot.$view );
             return new activityView( $model );
         } else if ( has_capability( 'moodle/legacy:student', $context ) ) {
             require_once(                    
